@@ -1,0 +1,69 @@
+1. How to compare two JSON have the same properties without order?
+        a. let obj1 = `{"name":"person1","age":5}`;
+        b. let obj2 = `{"age":5,"name":"person1"}`;  
+
+
+Ans :-
+
+let obj1 = `{"name":"person1","age":5}`;
+let obj2 = `{"age":5,"name":"person1"}`;
+function compareJSON(obj1,obj2)
+{
+let person1 = JSON.parse(obj1);
+let person2 = JSON.parse(obj2);
+if(Object.keys(person1).length != Object.keys(person2).length)
+{
+  return false;
+  }
+  
+  for(let key in person1)
+  {
+    if(!person2.hasOwnProperty(key) || person1[key] !== person2[key])
+    {
+    return false;  
+      }
+    }
+    
+    for (let key in person2)
+    {
+      if(!person1.hasOwnProperty(key) || person2[key]!==person1[key])
+      {
+        return false;
+        }
+      }
+      return true;
+}      
+        let result = compareJSON(obj1,obj2);
+        console.log(result);
+
+2.use the rest countries API to console the all countries flag , name , region , subregion and population.
+
+var xhr = new XMLHttpRequest();
+var method = "GET";
+var url = "https://restcountries.com/v3.1/all";
+xhr.open(method, url);
+
+xhr.onload = function()
+{
+if(xhr.status===200)
+{
+    var countrydetailes = JSON.parse(xhr.responseText);
+ console.log(countrydetailes);
+console.log(countrydetailes.length);
+
+    for(let i=0; i<countrydetailes.length; i++)
+    {
+console.log(countrydetailes[i].flags);
+console.log(countrydetailes[i].name);
+console.log(countrydetailes[i].name.common);
+console.log(countrydetailes[i].region);
+console.log(countrydetailes[i].subregion);
+console.log(countrydetailes[i].population);
+    }
+}
+else
+{
+  console.log("Request failed",xhr.status);
+}
+};
+xhr.send();
